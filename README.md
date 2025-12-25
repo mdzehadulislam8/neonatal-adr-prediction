@@ -122,7 +122,6 @@ Required Excel columns:
 - `patient_weight`: Weight in kg
 - **Data Path**: `DATA_PATH = "data/neonatal_adr_top20_new.xlsx"`
 - **settings (in code):
-- `DATA_PATH = "data/neonatal_adr_top20_new.xlsx"`
 - `MODEL_DIR = "models"`
 - Flask debug mode enabled for development
 
