@@ -1,93 +1,98 @@
 # Neonatal ADR Prediction System
 
-A machine learning-based web application for predicting adverse drug reactions (ADR) and outcomes in neonatal patients using CatBoost classifiers with SHAP-based explainability.
+> A machine learning web application for predicting adverse drug reactions (ADR) in neonatal patients using CatBoost classifiers and SHAP-based explainability.
 
 ## Overview
 
-The system predicts two outcomes from patient and medication data:
-- **Reaction Type**: Classification of the adverse reaction
-- **Outcome Severity**: Predicted severity level
+Predicts two critical outcomes from patient and medication data:
+- **Reaction Type** — Classifies the adverse reaction category
+- **Outcome Severity** — Predicts reaction severity level
 
-It provides SHAP visualizations to help interpret prediction drivers.
+Uses SHAP visualizations to explain model predictions and highlight feature importance.
 
 ## Features
 
-- Dual CatBoost models for reaction type and outcome prediction
-- Flask web interface with real-time predictions
-- SHAP-based model explainability
-- Label encoding for categorical features
-- Responsive input form with dropdown selections
+- Dual CatBoost classification models (reaction type + outcome prediction)
+- Real-time Flask web interface with interactive prediction form
+- SHAP-based explainability for model transparency
+- Label encoding for categorical feature handling
+- Responsive HTML frontend with results visualization
 
 ## Project Structure
 
 ```
-.
-├── app.py                          # Flask web application
-├── train_model.py                  # Model training pipeline
-├── utils.py                        # Utility functions (preprocessing, prediction, XAI)
-├── requirements.txt                # Python dependencies
-├── README.md                       # This file
+neonatal-adr-predict/
+├── app.py                    # Flask web application & routes
+├── train_model.py            # Model training pipeline
+├── utils.py                  # Utilities: preprocessing, prediction, SHAP
+├── requirements.txt          # Python dependencies
+├── README.md                 # This file
 ├── templates/
-│   ├── index.html                 # Input form interface
-│   └── result.html                # Prediction results page
-├── models/                        # Trained model artifacts (generated)
-├── data/
-│   └──dataset
-└── static/                        # XAI plots (generated)
+│   ├── index.html           # Prediction input interface
+│   └── result.html          # Results & SHAP visualization
+├── models/                  # Trained model artifacts
+├── data/                    # Dataset directory (private)
+└── static/                  # Generated SHAP plots
 ```
 
 ## Installation
 
-### Prerequisites
+### Requirements
 - Python 3.8+
 - pip
 
-### Setup
+### Quick Start
 
-1. Install dependencies:
+1. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
 2. **Dataset Access** ⚠️
-   - The training dataset (`data/neonatal_adr_top20_new.xlsx`) is **not included** in this repository
-   - **Permission required**: Contact the project maintainer to access the dataset
-   - Once obtained, place it in the `data/` directory
-   - Required columns: suspect_product_active_ingredients, reason_for_use, reactions, outcomes, sex, patient_age, patient_weight
+   
+   The training dataset is **proprietary clinical data** (not included in this repository).
+   
+   **To request dataset access, email:**
+   - Md. Abdullah Al Moin: [midul7714@gmail.com](mailto:midul7714@gmail.com)
+   - Md. Zehadul Islam: [gg.solve.zehadul999@gmail.com](mailto:gg.solve.zehadul999@gmail.com)
+   
+   **Include in request:** Your name, institution, and research purpose. Access granted for research/education only after approval.
 
 ## Usage
 
-### Train Models
+### Code Structure
+
+The project follows a modular architecture:
+Training Models
+
 ```bash
 python train_model.py
 ```
-Trains CatBoost classifiers and saves to `models/` directory.
 
-### Run Web Application
+Trains two CatBoost classifiers on the clinical dataset and saves models to `models/` directory.
+
+*Requires dataset access (see Installation).*
+
+### Running the Web Application
+
 ```bash
 python app.py
 ```
-Access at `http://localhost:5000`
 
-**Using the Web Interface:**
+Access the application at: `http://localhost:5000`
 
-| Step | Action |
-|------|--------|
-| 1 | Select medication (active ingredient) |
-| 2 | Choose reason for use |
-| 3 | Enter patient details (sex, age, weight) |
-| 4 | Click Predict |
-| 5 | View results and SHAP explanation plot |
+**Workflow:**
+1. Select medication (active ingredient)
+2. Choose indication (reason for use)
+3. Enter patient details: sex, age, weight
+4. Click "Predict"
+5. View prediction results + SHAP explanation plot
 
-### Interface Screenshots
+### Application Screenshots
 
-| Screenshot | Description |
-|-----------|-------------|
-| ![Input Form](https://drive.google.com/uc?id=1yhqdjHCRrBMndkI7zVQz758FN8SShxfY) | **Input Form** - Main prediction input interface |
-| ![Results Page](https://drive.google.com/uc?id=1SUwoAXsESxb8aAf33lnNczZ2GK0ds6WG) | **Results Page** - Prediction output with SHAP visualization |
-
-
-## Model Details
+| Input Interface | Results Page |
+|-----------------|-------------|
+| ![Input Form](https://drive.google.com/uc?id=1yhqdjHCRrBMndkI7zVQz758FN8SShxfY) | ![Results Page](https://drive.google.com/uc?id=1SUwoAXsESxb8aAf33lnNczZ2GK0ds6WG)
 
 **Input Features**: 5 (medication, reason, sex, age, weight)
 
@@ -99,45 +104,46 @@ Access at `http://localhost:5000`
 **Output**: Probability scores + feature importance plot
 
 ## Dependencies
+Data**: This project uses sensitive clinical data from neonatal adverse drug reactions. All data handling must comply with healthcare regulations.
 
-See `requirements.txt` for details:
+⚠️ **Clinical Use**: This system is a research tool and decision support aid, not a clinical decision maker. Professional clinical judgment is always required.
+Architecture
+
+**Input Features:** 5 (medication, indication, sex, age, weight)
+
+**Pipeline:**
+- Label encoding for categorical features
+- Two CatBoost classifiers: reaction type + outcome prediction
+- SHAP visualization for feature importance
+
+**Output:** Probability scores + feature importance plot
+
+## Dependencies
+
 - Flask (web framework)
 - pandas, scikit-learn (data processing)
-- CatBoost (gradient boosting)
-- SHAP (explainability)
+- CatBoost (gradient boosting classifier)
+- SHAP (model explainability)
 - matplotlib (visualization)
-- joblib, openpyxl (utilities)
+- joblib (model serialization)
+- openpyxl (Excel handling)
 
-## Data Format
-
-Required Excel columns:
-- `suspect_product_active_ingredients`: Medication name
-- `reason_for_use`: Clinical indication
-- `reactions`: Observed adverse reaction
-- `outcomes`: Reaction outcome/severity
-- `sex`: Patient gender (M/F)
-- `patient_age`: Age (numeric)
-- `patient_weight`: Weight in kg
-
-## Configuration
-
-Key settings (in code):
-- `DATA_PATH = "data/neonatal_adr_top20_new.xlsx"`
-- `MODEL_DIR = "models"`
-- Flask debug mode enabled for development
+See `requirements.txt` for version specifications.
 
 ## Important Notes
 
-⚠️ **Clinical Use**: This is a decision support tool, not a clinical decision maker. Always consult healthcare professionals.
+⚠️ **Clinical Data** — Contains sensitive neonatal adverse reaction information. Strict privacy compliance required.
 
-⚠️ **Data Privacy**: Ensure compliance with HIPAA, GDPR, and institutional regulations before deployment.
+⚠️ **Research Use Only** — Decision support tool, not a clinical decision maker. Professional judgment always required.
 
-⚠️ **Dataset Access**: The dataset is proprietary and requires permission. Contact maintainers for access.
+⚠️ **Data Protection** — Dataset access restricted and non-redistributable. Individual requests reviewed on case-by-case basis.
+
+⚠️ **Regulatory Compliance** — Ensure HIPAA, GDPR, and institutional requirements compliance before deployment.
 
 ## License & Disclaimer
 
-Developed for educational and research purposes. Not intended for clinical decision-making without proper validation and oversight.
+Developed for educational and research purposes only. **Not intended for clinical decision-making without proper validation, oversight, and regulatory approval.**
 
 ---
 
-**Last Updated**: December 2025 | **Status**: Active Development 
+**Last Updated:** December 2025 | **Status:** Active Development
