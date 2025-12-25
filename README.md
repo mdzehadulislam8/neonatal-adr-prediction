@@ -81,8 +81,13 @@ Access at `http://localhost:5000`
 
 ### Interface Screenshots
 
-- **Input Form**: [View Screenshot](https://drive.google.com/file/d/1yhqdjHCRrBMndkI7zVQz758FN8SShxfY/view?usp=drive_link) - Main prediction input interface
-- **Results Page**: [View Screenshot](https://drive.google.com/file/d/1SUwoAXsESxb8aAf33lnNczZ2GK0ds6WG/view?usp=drive_link) - Prediction output with SHAP visualization
+**Input Form** - Main prediction input interface
+![Input Form](https://drive.google.com/uc?id=1yhqdjHCRrBMndkI7zVQz758FN8SShxfY)
+[View Full Size](https://drive.google.com/file/d/1yhqdjHCRrBMndkI7zVQz758FN8SShxfY/view?usp=drive_link)
+
+**Results Page** - Prediction output with SHAP visualization
+![Results Page](https://drive.google.com/uc?id=1SUwoAXsESxb8aAf33lnNczZ2GK0ds6WG)
+[View Full Size](https://drive.google.com/file/d/1SUwoAXsESxb8aAf33lnNczZ2GK0ds6WG/view?usp=drive_link)
 
 ## Model Details
 
@@ -137,12 +142,4 @@ Developed for educational and research purposes. Not intended for clinical decis
 
 ---
 
-**Last Updated**: December 2025 | **Status**: Active Development  
-**Status**: Active Development
- & Disclaimer
-
-Developed for educational and research purposes. Not intended for clinical decision-making without proper validation and oversight.
-
----
-
-**Last Updated**: December 2025 | 
+**Last Updated**: December 2025 | **Status**: Active Development 
