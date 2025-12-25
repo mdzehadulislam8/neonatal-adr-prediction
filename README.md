@@ -18,22 +18,20 @@ Uses SHAP visualizations to explain model predictions and highlight feature impo
 - Label encoding for categorical feature handling
 - Responsive HTML frontend with results visualization
 
-## Project Structure
+## File Organization
 
-```
-neonatal-adr-predict/
-├── app.py                    # Flask web application & routes
-├── train_model.py            # Model training pipeline
-├── utils.py                  # Utilities: preprocessing, prediction, SHAP
-├── requirements.txt          # Python dependencies
-├── README.md                 # This file
-├── templates/
-│   ├── index.html           # Prediction input interface
-│   └── result.html          # Results & SHAP visualization
-├── models/                  # Trained model artifacts
-├── data/                    # Dataset directory (private)
-└── static/                  # Generated SHAP plots
-```
+| Directory | File | Purpose |
+|-----------|------|---------|
+| Root | `app.py` | Flask web server & prediction routes |
+| | `train_model.py` | Model training & validation pipeline |
+| | `utils.py` | Data preprocessing, inference, SHAP utilities |
+| | `requirements.txt` | Python package dependencies |
+| | `README.md` | Project documentation |
+| `templates/` | `index.html` | Input form interface |
+| | `result.html` | Results page with SHAP visualization |
+| `models/` | (generated) | Trained CatBoost model artifacts |
+| `data/` | (input) | Dataset directory - private/restricted access |
+| `static/` | (generated) | SHAP feature importance plots |
 
 ## Installation
 
